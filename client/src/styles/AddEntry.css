@@ -1,0 +1,132 @@
+.add-entry {
+  background-color: #131a30;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  width: 90%;
+  max-width: 450px;
+  padding: 20px;
+  color: white;
+}
+
+.add-entry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.add-entry-header h2 {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  color: #8f94a3;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.entry-type-selector {
+  display: flex;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.type-button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  background-color: #1f2747;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.type-button.active {
+  background-color: #0cbb69;
+}
+
+.type-button:nth-child(2).active {
+  background-color: #ff5252;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #8f94a3;
+  font-size: 14px;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: #1f2747;
+  color: white;
+  font-size: 16px;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(12, 187, 105, 0.3);
+}
+
+.form-group select option {
+  background-color: #1f2747;
+  color: white;
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 25px;
+}
+
+.cancel-button,
+.save-button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cancel-button {
+  background-color: #2a3551;
+  color: white;
+}
+
+.save-button {
+  background-color: #0cbb69;
+  color: white;
+}
+
+.cancel-button:hover {
+  background-color: #3a465e;
+}
+
+.save-button:hover {
+  background-color: #068047;
+}
+
+/* For date input styling */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}

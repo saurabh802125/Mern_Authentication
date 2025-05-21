@@ -1,0 +1,173 @@
+.entry-list-container {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+.entry-list-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 25px;
+  background-color: #1f2747;
+  padding: 15px;
+  border-radius: 12px;
+}
+
+.filter-group,
+.sort-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.filter-group label,
+.sort-group label {
+  font-size: 14px;
+  color: #8f94a3;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.filter-buttons button {
+  flex: 1;
+  background-color: #2a3551;
+  color: white;
+  border: none;
+  padding: 10px 5px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.filter-buttons button.active {
+  background-color: #0cbb69;
+}
+
+.sort-group select {
+  background-color: #2a3551;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.entry-items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 70px; /* Space for the bottom navigation */
+}
+
+.entry-item {
+  background-color: #1f2747;
+  border-radius: 12px;
+  padding: 15px;
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+.entry-item.income {
+  border-left: 4px solid #0cbb69;
+}
+
+.entry-item.expense {
+  border-left: 4px solid #ff5252;
+}
+
+.entry-date {
+  color: #8f94a3;
+  font-size: 12px;
+  width: 60px;
+}
+
+.entry-details {
+  flex-grow: 1;
+  padding: 0 10px;
+}
+
+.entry-category {
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.entry-description {
+  font-size: 13px;
+  color: #8f94a3;
+}
+
+.entry-amount {
+  font-weight: 600;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.entry-item.income .amount {
+  color: #0cbb69;
+}
+
+.entry-item.expense .amount {
+  color: #ff5252;
+}
+
+.entry-actions {
+  display: flex;
+  gap: 5px;
+  margin-top: 5px;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.entry-item:hover .entry-actions {
+  opacity: 1;
+}
+
+.edit-button,
+.delete-button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.edit-button:hover,
+.delete-button:hover {
+  transform: scale(1.1);
+}
+
+.no-entries {
+  text-align: center;
+  padding: 40px 0;
+  color: #8f94a3;
+}
+
+@media (max-width: 480px) {
+  .entry-date {
+    width: 50px;
+    font-size: 11px;
+  }
+  
+  .entry-category {
+    font-size: 14px;
+  }
+  
+  .entry-description {
+    font-size: 12px;
+  }
+  
+  .edit-button,
+  .delete-button {
+    font-size: 14px;
+  }
+}
