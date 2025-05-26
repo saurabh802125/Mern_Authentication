@@ -4,10 +4,11 @@
   margin: 0 auto;
   padding: 20px;
   min-height: 100vh;
-  background-color: #131a30;
+  background: transparent;
   color: white;
   position: relative;
   padding-bottom: 80px;
+  z-index: 2;
 }
 
 .entries-header {
@@ -15,29 +16,44 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  padding: 20px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .entries-header h1 {
   font-size: 28px;
   font-weight: 600;
+  background: linear-gradient(45deg, #00d4ff, #ffffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .add-button {
-  background-color: #0cbb69;
+  background: linear-gradient(45deg, #00d4ff, #0099cc);
   color: white;
   border: none;
-  padding: 8px 15px;
-  border-radius: 8px;
+  padding: 12px 20px;
+  border-radius: 12px;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   display: flex;
   align-items: center;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+  gap: 8px;
 }
 
 .add-button:hover {
-  background-color: #068047;
+  background: linear-gradient(45deg, #00b8d4, #0077aa);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 212, 255, 0.4);
 }
 
 .modal-overlay {
@@ -46,20 +62,45 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .modal-content {
   width: 90%;
   max-width: 450px;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .loading {
   text-align: center;
-  padding: 30px;
-  color: #8f94a3;
+  padding: 40px;
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin: 20px;
+  font-size: 18px;
 }

@@ -10,22 +10,28 @@
   flex-direction: column;
   gap: 15px;
   margin-bottom: 25px;
-  background-color: #1f2747;
-  padding: 15px;
-  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  padding: 20px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .filter-group,
 .sort-group {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .filter-group label,
 .sort-group label {
   font-size: 14px;
-  color: #8f94a3;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .filter-buttons {
@@ -35,126 +41,350 @@
 
 .filter-buttons button {
   flex: 1;
-  background-color: #2a3551;
-  color: white;
-  border: none;
-  padding: 10px 5px;
-  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 12px 8px;
+  border-radius: 12px;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.filter-buttons button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.filter-buttons button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.filter-buttons button:hover::before.entry-list-container {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+.entry-list-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 25px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  padding: 20px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.filter-group,
+.sort-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.filter-group label,
+.sort-group label {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.filter-buttons button {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 12px 8px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.filter-buttons button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.filter-buttons button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.filter-buttons button:hover::before {
+  left: 100%;
 }
 
 .filter-buttons button.active {
-  background-color: #0cbb69;
+  background: linear-gradient(45deg, #00d4ff, #0099cc);
+  color: white;
+  border-color: rgba(0, 212, 255, 0.5);
+  box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+  transform: translateY(-1px);
 }
 
 .sort-group select {
-  background-color: #2a3551;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
   color: white;
-  border: none;
-  padding: 10px;
-  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 12px 15px;
+  border-radius: 12px;
   font-size: 14px;
   cursor: pointer;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.sort-group select:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.sort-group select:focus {
+  border-color: #00d4ff;
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.2);
+}
+
+.sort-group select option {
+  background: rgba(31, 39, 71, 0.95);
+  color: white;
+  padding: 10px;
 }
 
 .entry-items {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-bottom: 70px; /* Space for the bottom navigation */
+  gap: 12px;
+  margin-bottom: 70px;
 }
 
 .entry-item {
-  background-color: #1f2747;
-  border-radius: 12px;
-  padding: 15px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  border-radius: 16px;
+  padding: 18px;
   display: flex;
   flex-direction: row;
   position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.entry-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.entry-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.entry-item:hover::before {
+  left: 100%;
 }
 
 .entry-item.income {
-  border-left: 4px solid #0cbb69;
+  border-left: 4px solid #00ff88;
+  box-shadow: 0 4px 15px rgba(0, 255, 136, 0.2);
 }
 
 .entry-item.expense {
-  border-left: 4px solid #ff5252;
+  border-left: 4px solid #ff6b6b;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.2);
 }
 
 .entry-date {
-  color: #8f94a3;
+  color: rgba(255, 255, 255, 0.7);
   font-size: 12px;
-  width: 60px;
+  width: 70px;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
 }
 
 .entry-details {
   flex-grow: 1;
-  padding: 0 10px;
+  padding: 0 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .entry-category {
-  font-weight: 500;
+  font-weight: 600;
   margin-bottom: 4px;
+  color: white;
+  font-size: 15px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .entry-description {
   font-size: 13px;
-  color: #8f94a3;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 300;
+  line-height: 1.4;
 }
 
 .entry-amount {
-  font-weight: 600;
+  font-weight: 700;
   text-align: right;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  justify-content: center;
+  min-width: 100px;
+}
+
+.amount {
+  font-size: 16px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  margin-bottom: 8px;
 }
 
 .entry-item.income .amount {
-  color: #0cbb69;
+  color: #00ff88;
 }
 
 .entry-item.expense .amount {
-  color: #ff5252;
+  color: #ff6b6b;
 }
 
 .entry-actions {
   display: flex;
-  gap: 5px;
-  margin-top: 5px;
+  gap: 8px;
   opacity: 0.7;
-  transition: opacity 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .entry-item:hover .entry-actions {
   opacity: 1;
 }
 
-.edit-button,
-.delete-button {
-  background: none;
-  border: none;
-  font-size: 16px;
+.entry-actions button {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-  padding: 4px;
+  transition: all 0.3s ease;
+  font-size: 14px;
 }
 
-.edit-button:hover,
-.delete-button:hover {
+.edit-button:hover {
+  background: rgba(0, 212, 255, 0.3);
+  border-color: #00d4ff;
   transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
+}
+
+.delete-button:hover {
+  background: rgba(255, 107, 107, 0.3);
+  border-color: #ff6b6b;
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
 }
 
 .no-entries {
   text-align: center;
-  padding: 40px 0;
-  color: #8f94a3;
+  padding: 50px 20px;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin: 20px 0;
 }
 
+.no-entries p {
+  margin: 12px 0;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.no-entries p:first-child {
+  font-size: 18px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Mobile Responsive */
 @media (max-width: 480px) {
+  .entry-list-container {
+    padding: 0 5px;
+  }
+  
+  .entry-list-filters {
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .filter-buttons {
+    gap: 6px;
+  }
+  
+  .filter-buttons button {
+    padding: 10px 6px;
+    font-size: 12px;
+  }
+  
+  .entry-item {
+    padding: 15px;
+  }
+  
   .entry-date {
-    width: 50px;
+    width: 60px;
     font-size: 11px;
   }
   
@@ -166,8 +396,17 @@
     font-size: 12px;
   }
   
-  .edit-button,
-  .delete-button {
-    font-size: 14px;
+  .amount {
+    font-size: 15px;
+  }
+  
+  .entry-actions button {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+  
+  .entry-details {
+    padding: 0 10px;
   }
 }

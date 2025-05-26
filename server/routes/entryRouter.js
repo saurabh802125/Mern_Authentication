@@ -7,7 +7,9 @@ import {
   deleteEntry,
   getSummary,
   getCategoryBreakdown,
-  getDailyBreakdown
+  getDailyBreakdown,
+  deleteAllEntries,
+  deleteEntriesByFilter
 } from "../controllers/entryController.js";
 import { isAuthenticated } from "../middlewares/auth.js";
 
@@ -25,5 +27,9 @@ router.get("/daily-breakdown", getDailyBreakdown);
 router.get("/:id", getEntry);
 router.put("/:id", updateEntry);
 router.delete("/:id", deleteEntry);
+
+// Bulk delete operations
+router.delete("/all/entries", deleteAllEntries);  // Clear all financial data
+router.post("/delete-filtered", deleteEntriesByFilter);  // Delete by filter
 
 export default router;

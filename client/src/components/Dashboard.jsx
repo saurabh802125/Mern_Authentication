@@ -88,6 +88,10 @@ const Dashboard = () => {
     navigateTo('/entries');
   };
 
+  const viewAnalytics = () => {
+    navigateTo('/analytics');
+  };
+
   // Translations for bilingual support
   const translations = {
     en: {
@@ -96,10 +100,13 @@ const Dashboard = () => {
       today: "TODAY",
       thisWeek: "THIS WEEK",
       thisMonth: "THIS MONTH",
-      allEntries: "All Entries",
-      noEntries: "No earnings recorded yet.",
+      recentEntries: "Recent Transactions",
+      noEntries: "No transactions recorded yet.",
       tapToAdd: "Tap the '+' button to add your first entry!",
-      viewAll: "View All"
+      viewAll: "View All",
+      viewAnalytics: "View Analytics",
+      welcome: "Welcome back",
+      financialOverview: "Your Financial Overview"
     },
     hi: {
       dashboard: "डैशबोर्ड",
@@ -107,10 +114,13 @@ const Dashboard = () => {
       today: "आज",
       thisWeek: "इस सप्ताह",
       thisMonth: "इस महीने",
-      allEntries: "सभी प्रविष्टियां",
-      noEntries: "अभी तक कोई आय दर्ज नहीं की गई है।",
+      recentEntries: "हाल की लेनदारी",
+      noEntries: "अभी तक कोई लेनदेन दर्ज नहीं किया गया है।",
       tapToAdd: "अपनी पहली प्रविष्टि जोड़ने के लिए '+' बटन पर टैप करें!",
-      viewAll: "सभी देखें"
+      viewAll: "सभी देखें",
+      viewAnalytics: "विश्लेषण देखें",
+      welcome: "वापसी पर स्वागत है",
+      financialOverview: "आपका वित्तीय अवलोकन"
     }
   };
 
@@ -119,7 +129,10 @@ const Dashboard = () => {
   return (
     <div className="dashboard">
       <div className="dashboard-header">
-        <h1>MyDehadi</h1>
+        <div className="dashboard-title">
+          <h1>E Smart Wallet</h1>
+          <p className="welcome-text">{t.welcome}, {user?.name || 'User'}!</p>
+        </div>
         <div className="language-selector">
           <select 
             value={language}
@@ -131,41 +144,98 @@ const Dashboard = () => {
         </div>
       </div>
 
+      <div className="financial-overview">
+        <h2>{t.financialOverview}</h2>
+        <div className="overview-stats">
+          <div className="stat-card">
+            <div className="stat-icon">💰</div>
+            <div className="stat-content">
+              <h3>Monthly Balance</h3>
+              <p className={`stat-value ${summaryData.thisMonth.balance >= 0 ? 'positive' : 'negative'}`}>
+                ₹{summaryData.thisMonth.balance.toFixed(0)}
+              </p>
+            </div>
+          </div>
+          
+          <div className="stat-card">
+            <div className="stat-icon">📈</div>
+            <div className="stat-content">
+              <h3>This Month Income</h3>
+              <p className="stat-value positive">₹{summaryData.thisMonth.income.toFixed(0)}</p>
+            </div>
+          </div>
+          
+          <div className="stat-card">
+            <div className="stat-icon">📉</div>
+            <div className="stat-content">
+              <h3>This Month Expense</h3>
+              <p className="stat-value negative">₹{summaryData.thisMonth.expense.toFixed(0)}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="quick-summary">
         <h2>{t.quickSummary}</h2>
+        
         <div className="summary-card">
           <div className="summary-icon">
             <span>📅</span>
           </div>
-          <div className="summary-title">{t.today}</div>
-          <div className="summary-amount">₹{summaryData.today.balance}</div>
+          <div className="summary-content">
+            <div className="summary-title">{t.today}</div>
+            <div className="summary-amount">₹{summaryData.today.balance}</div>
+            <div className="summary-details">
+              <span className="income-detail">+₹{summaryData.today.income}</span>
+              <span className="expense-detail">-₹{summaryData.today.expense}</span>
+            </div>
+          </div>
         </div>
         
         <div className="summary-card">
           <div className="summary-icon">
             <span>📊</span>
           </div>
-          <div className="summary-title">{t.thisWeek}</div>
-          <div className="summary-amount">₹{summaryData.thisWeek.balance}</div>
+          <div className="summary-content">
+            <div className="summary-title">{t.thisWeek}</div>
+            <div className="summary-amount">₹{summaryData.thisWeek.balance}</div>
+            <div className="summary-details">
+              <span className="income-detail">+₹{summaryData.thisWeek.income}</span>
+              <span className="expense-detail">-₹{summaryData.thisWeek.expense}</span>
+            </div>
+          </div>
         </div>
         
         <div className="summary-card">
           <div className="summary-icon">
             <span>📆</span>
           </div>
-          <div className="summary-title">{t.thisMonth}</div>
-          <div className="summary-amount">₹{summaryData.thisMonth.balance}</div>
+          <div className="summary-content">
+            <div className="summary-title">{t.thisMonth}</div>
+            <div className="summary-amount">₹{summaryData.thisMonth.balance}</div>
+            <div className="summary-details">
+              <span className="income-detail">+₹{summaryData.thisMonth.income}</span>
+              <span className="expense-detail">-₹{summaryData.thisMonth.expense}</span>
+            </div>
+          </div>
         </div>
       </div>
 
       <div className="entries-section">
         <div className="entries-header">
-          <h2>{t.allEntries}</h2>
-          {entries.length > 0 && (
-            <button className="view-all-button" onClick={viewAllEntries}>
-              {t.viewAll}
-            </button>
-          )}
+          <h2>{t.recentEntries}</h2>
+          <div className="header-actions">
+            {entries.length > 0 && (
+              <>
+                <button className="view-all-button" onClick={viewAllEntries}>
+                  {t.viewAll}
+                </button>
+                <button className="analytics-button" onClick={viewAnalytics}>
+                  {t.viewAnalytics}
+                </button>
+              </>
+            )}
+          </div>
         </div>
 
         {loading ? (
@@ -178,12 +248,14 @@ const Dashboard = () => {
                 className={`entry-item ${entry.type === 'income' ? 'income' : 'expense'}`}
                 onClick={() => navigateTo(`/entries?edit=${entry._id}`)}
               >
-                <div className="entry-date">{formatDate(entry.date)}</div>
-                <div className="entry-details">
-                  <span className="entry-category">{entry.category}</span>
-                  {entry.description && (
-                    <span className="entry-description">{entry.description}</span>
-                  )}
+                <div className="entry-info">
+                  <div className="entry-date">{formatDate(entry.date)}</div>
+                  <div className="entry-details">
+                    <span className="entry-category">{entry.category}</span>
+                    {entry.description && (
+                      <span className="entry-description">{entry.description}</span>
+                    )}
+                  </div>
                 </div>
                 <div className="entry-amount">
                   {entry.type === 'income' ? '+' : '-'}₹{entry.amount}
@@ -193,10 +265,29 @@ const Dashboard = () => {
           </div>
         ) : (
           <div className="no-entries">
+            <div className="no-entries-icon">💳</div>
             <p>{t.noEntries}</p>
             <p>{t.tapToAdd}</p>
           </div>
         )}
+      </div>
+
+      {/* Quick Actions */}
+      <div className="quick-actions">
+        <button 
+          className="quick-action-btn income-btn"
+          onClick={() => setShowAddEntry(true)}
+        >
+          <span className="action-icon">💰</span>
+          <span>Add Income</span>
+        </button>
+        <button 
+          className="quick-action-btn expense-btn"
+          onClick={() => setShowAddEntry(true)}
+        >
+          <span className="action-icon">💸</span>
+          <span>Add Expense</span>
+        </button>
       </div>
 
       {showAddEntry ? (
