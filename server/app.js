@@ -15,14 +15,15 @@ config({ path: "./config.env" });
 const PORT = process.env.PORT || 4000;
 
 // Updated CORS configuration for deployment
+// Updated CORS configuration for deployment
 const allowedOrigins = [
   process.env.FRONTEND_URL,
   'http://localhost:5173',
   'http://localhost:3000',
-  'https://e-smart-wallet.vercel.app', // Add your actual frontend URL
-  /\.vercel\.app$/,      // Allow all Vercel domains
-  /\.onrender\.com$/,    // Allow all Render domains
-  /\.netlify\.app$/      // Allow all Netlify domains (bonus)
+  'https://e-smart-wallet.vercel.app', // Add your Vercel frontend URL here
+  /^https:\/\/.*\.vercel\.app$/,      // Allow all Vercel domains
+  /^https:\/\/.*\.onrender\.com$/,    // Allow all Render domains
+  /^https:\/\/.*\.netlify\.app$/      // Allow all Netlify domains (bonus)
 ];
 
 app.use(
@@ -47,7 +48,15 @@ app.use(
     },
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
-    optionsSuccessStatus: 200
+    optionsSuccessStatus: 200,
+    allowedHeaders: [
+      'Origin',
+      'X-Requested-With', 
+      'Content-Type',
+      'Accept',
+      'Authorization',
+      'Cookie'
+    ]
   })
 );
 
