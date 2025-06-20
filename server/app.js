@@ -11,16 +11,14 @@ import { removeUnverifiedAccounts } from "./automation/removeUnverifiedAccounts.
 export const app = express();
 config({ path: "./config.env" });
 
-// Fixed port configuration for deployment
+// Updated port configuration for deployment
 const PORT = process.env.PORT || 4000;
 
-// Updated CORS configuration for deployment
 // Updated CORS configuration for deployment
 const allowedOrigins = [
   process.env.FRONTEND_URL,
   'http://localhost:5173',
   'http://localhost:3000',
-  'https://e-smart-wallet.vercel.app', // Add your Vercel frontend URL here
   /^https:\/\/.*\.vercel\.app$/,      // Allow all Vercel domains
   /^https:\/\/.*\.onrender\.com$/,    // Allow all Render domains
   /^https:\/\/.*\.netlify\.app$/      // Allow all Netlify domains (bonus)
@@ -51,7 +49,7 @@ app.use(
     optionsSuccessStatus: 200,
     allowedHeaders: [
       'Origin',
-      'X-Requested-With', 
+      'X-Requested-With',
       'Content-Type',
       'Accept',
       'Authorization',
@@ -64,7 +62,7 @@ app.use(cookieParser());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Health check endpoint (important for deployment services)
+// Health check endpoints (important for deployment services)
 app.get('/', (req, res) => {
   res.status(200).json({
     success: true,
@@ -83,7 +81,32 @@ app.get('/health', (req, res) => {
   });
 });
 
-// API Routes
+// API Base route
+app.get('/api', (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'E Smart Wallet API v1',
+    version: '1.0.0',
+    endpoints: {
+      auth: '/api/v1/user',
+      entries: '/api/v1/entries'
+    },
+    timestamp: new Date().toISOString()
+  });
+});
+
+// API Health route (this was missing!)
+app.get('/api/health', (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'API is healthy',
+    version: '1.0.0',
+    timestamp: new Date().toISOString(),
+    database: 'connected' // You can make this dynamic
+  });
+});
+
+// API v1 routes
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/entries", entryRouter);
 
@@ -91,7 +114,16 @@ app.use("/api/v1/entries", entryRouter);
 app.use('*', (req, res) => {
   res.status(404).json({
     success: false,
-    message: `Route ${req.originalUrl} not found`
+    message: `Route ${req.originalUrl} not found`,
+    availableRoutes: [
+      'GET /',
+      'GET /health',
+      'GET /api',
+      'GET /api/health',
+      'POST /api/v1/user/register',
+      'POST /api/v1/user/login',
+      'GET /api/v1/entries'
+    ]
   });
 });
 
@@ -102,5 +134,4 @@ connection();
 // Error middleware (must be last)
 app.use(errorMiddleware);
 
-// Remove the app.listen from here - it should only be in server.js
 export default app;
