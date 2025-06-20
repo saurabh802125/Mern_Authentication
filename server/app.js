@@ -11,14 +11,15 @@ import { removeUnverifiedAccounts } from "./automation/removeUnverifiedAccounts.
 export const app = express();
 config({ path: "./config.env" });
 
-// Updated port configuration for deployment
-const PORT = process.env.PORT || 0;
+// Fixed port configuration for deployment
+const PORT = process.env.PORT || 4000;
 
 // Updated CORS configuration for deployment
 const allowedOrigins = [
   process.env.FRONTEND_URL,
   'http://localhost:5173',
   'http://localhost:3000',
+  'https://e-smart-wallet.vercel.app', // Add your actual frontend URL
   /\.vercel\.app$/,      // Allow all Vercel domains
   /\.onrender\.com$/,    // Allow all Render domains
   /\.netlify\.app$/      // Allow all Netlify domains (bonus)
@@ -60,7 +61,8 @@ app.get('/', (req, res) => {
     success: true,
     message: 'E Smart Wallet API is running!',
     timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV || 'development'
+    environment: process.env.NODE_ENV || 'development',
+    port: PORT
   });
 });
 
@@ -91,9 +93,5 @@ connection();
 // Error middleware (must be last)
 app.use(errorMiddleware);
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`🚀 E Smart Wallet API running on port ${PORT}`);
-  console.log(`📱 Frontend URL: ${process.env.FRONTEND_URL}`);
-  console.log(`🌍 Environment: ${process.env.NODE_ENV}`);
-});
+// Remove the app.listen from here - it should only be in server.js
+export default app;
