@@ -5,6 +5,9 @@ import '../styles/Profile.css';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
+// API Base URL configuration
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api/v1';
+
 const Profile = () => {
   const { isAuthenticated, user, setUser, setIsAuthenticated } = useContext(Context);
   const [language, setLanguage] = useState(() => {
@@ -15,7 +18,7 @@ const Profile = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.get("http://localhost:4000/api/v1/user/logout", {
+      await axios.get(`${API_BASE_URL}/user/logout`, {
         withCredentials: true,
       });
       toast.success("Logged out successfully");
@@ -53,7 +56,7 @@ const Profile = () => {
     
     try {
       // Method 1: Try to delete all entries via API
-      const response = await axios.delete('http://localhost:4000/api/v1/entries/all', {
+      const response = await axios.delete(`${API_BASE_URL}/entries/all/entries`, {
         withCredentials: true
       });
       
@@ -67,13 +70,13 @@ const Profile = () => {
       
       try {
         // Method 2: Delete entries one by one if bulk delete not available
-        const entriesResponse = await axios.get('http://localhost:4000/api/v1/entries', {
+        const entriesResponse = await axios.get(`${API_BASE_URL}/entries`, {
           withCredentials: true
         });
         
         if (entriesResponse.data.success && entriesResponse.data.entries.length > 0) {
           const deletePromises = entriesResponse.data.entries.map(entry => 
-            axios.delete(`http://localhost:4000/api/v1/entries/${entry._id}`, {
+            axios.delete(`${API_BASE_URL}/entries/${entry._id}`, {
               withCredentials: true
             })
           );

@@ -7,6 +7,9 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useLocation, useNavigate } from 'react-router-dom';
 
+// API Base URL configuration
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api/v1';
+
 const Entries = () => {
   const { isAuthenticated } = useContext(Context);
   const location = useLocation();
@@ -50,7 +53,7 @@ const Entries = () => {
       if (filters.endDate) params.endDate = filters.endDate;
       if (filters.category) params.category = filters.category;
       
-      const response = await axios.get('http://localhost:4000/api/v1/entries', {
+      const response = await axios.get(`${API_BASE_URL}/entries`, {
         params,
         withCredentials: true
       });
@@ -69,7 +72,7 @@ const Entries = () => {
 
   const fetchEntryById = async (id) => {
     try {
-      const response = await axios.get(`http://localhost:4000/api/v1/entries/${id}`, {
+      const response = await axios.get(`${API_BASE_URL}/entries/${id}`, {
         withCredentials: true
       });
       
@@ -88,7 +91,7 @@ const Entries = () => {
   const handleAddEntry = async (entryData) => {
     try {
       const response = await axios.post(
-        'http://localhost:4000/api/v1/entries',
+        `${API_BASE_URL}/entries`,
         entryData,
         { withCredentials: true }
       );
@@ -107,7 +110,7 @@ const Entries = () => {
   const handleUpdateEntry = async (updatedEntry) => {
     try {
       const response = await axios.put(
-        `http://localhost:4000/api/v1/entries/${updatedEntry._id}`,
+        `${API_BASE_URL}/entries/${updatedEntry._id}`,
         updatedEntry,
         { withCredentials: true }
       );
@@ -127,7 +130,7 @@ const Entries = () => {
     if (window.confirm('Are you sure you want to delete this entry?')) {
       try {
         const response = await axios.delete(
-          `http://localhost:4000/api/v1/entries/${entryToDelete._id}`,
+          `${API_BASE_URL}/entries/${entryToDelete._id}`,
           { withCredentials: true }
         );
         

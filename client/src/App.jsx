@@ -16,6 +16,15 @@ import axios from "axios";
 import { Context } from "./main";
 import OtpVerification from "./pages/OtpVerification";
 
+// API Base URL configuration for deployment
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api/v1';
+
+console.log('API Base URL:', API_BASE_URL); // For debugging
+
+// Configure axios defaults
+axios.defaults.baseURL = API_BASE_URL.replace('/api/v1', '');
+axios.defaults.withCredentials = true;
+
 // Floating Background Icons Component
 const FloatingIcons = () => {
   const icons = [
@@ -238,12 +247,14 @@ const App = () => {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const res = await axios.get("http://localhost:4000/api/v1/user/me", { 
+        // Updated API call to use dynamic URL
+        const res = await axios.get(`${API_BASE_URL}/user/me`, { 
           withCredentials: true 
         });
         setUser(res.data.user);
         setIsAuthenticated(true);
       } catch (err) {
+        console.log('User not authenticated:', err.message);
         setUser(null);
         setIsAuthenticated(false);
       } finally {

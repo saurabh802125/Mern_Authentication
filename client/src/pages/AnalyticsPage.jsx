@@ -6,6 +6,9 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { getDateRange } from '../utils/dateUtils';
 
+// API Base URL configuration
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api/v1';
+
 const AnalyticsPage = () => {
   const { isAuthenticated } = useContext(Context);
   const [timePeriod, setTimePeriod] = useState('30days');
@@ -27,7 +30,7 @@ const AnalyticsPage = () => {
       const dateRange = getDateRange(timePeriod);
       
       // Fetch daily breakdown data
-      const dailyResponse = await axios.get('http://localhost:4000/api/v1/entries/daily-breakdown', {
+      const dailyResponse = await axios.get(`${API_BASE_URL}/entries/daily-breakdown`, {
         params: {
           startDate: dateRange.startDate,
           endDate: dateRange.endDate
@@ -40,7 +43,7 @@ const AnalyticsPage = () => {
       }
       
       // Fetch category breakdown data
-      const categoryResponse = await axios.get('http://localhost:4000/api/v1/entries/category-breakdown', {
+      const categoryResponse = await axios.get(`${API_BASE_URL}/entries/category-breakdown`, {
         params: {
           startDate: dateRange.startDate,
           endDate: dateRange.endDate

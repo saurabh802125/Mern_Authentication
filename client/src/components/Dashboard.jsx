@@ -7,6 +7,9 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { formatDate } from '../utils/dateUtils';
 
+// API Base URL configuration
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:4000/api/v1';
+
 const Dashboard = () => {
   const { user } = useContext(Context);
   const navigateTo = useNavigate();
@@ -31,7 +34,7 @@ const Dashboard = () => {
     setLoading(true);
     try {
       // Fetch summary data
-      const summaryRes = await axios.get('http://localhost:4000/api/v1/entries/summary', {
+      const summaryRes = await axios.get(`${API_BASE_URL}/entries/summary`, {
         withCredentials: true
       });
       
@@ -40,7 +43,7 @@ const Dashboard = () => {
       }
       
       // Fetch recent entries - limited to 5
-      const entriesRes = await axios.get('http://localhost:4000/api/v1/entries', {
+      const entriesRes = await axios.get(`${API_BASE_URL}/entries`, {
         params: {
           sort: 'date:desc',
           limit: 5
@@ -63,7 +66,7 @@ const Dashboard = () => {
   const handleAddEntry = async (entryData) => {
     try {
       const response = await axios.post(
-        'http://localhost:4000/api/v1/entries',
+        `${API_BASE_URL}/entries`,
         entryData,
         { withCredentials: true }
       );
