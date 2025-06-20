@@ -12,7 +12,7 @@ export const app = express();
 config({ path: "./config.env" });
 
 // Updated port configuration for deployment
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 0;
 
 // Updated CORS configuration for deployment
 const allowedOrigins = [
